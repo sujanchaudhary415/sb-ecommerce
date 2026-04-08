@@ -1,8 +1,20 @@
 package com.ecommerce.sb_ecom.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity (name="Categories")
 public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
     private String categoryName;
+
+    // required by JPA
+    public Category() {
+    }
 
     public Category(Long categoryId, String categoryName) {
         this.categoryId = categoryId;
