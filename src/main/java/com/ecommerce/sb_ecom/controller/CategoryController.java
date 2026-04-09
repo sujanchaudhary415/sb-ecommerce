@@ -2,6 +2,7 @@ package com.ecommerce.sb_ecom.controller;
 
 import com.ecommerce.sb_ecom.model.Category;
 import com.ecommerce.sb_ecom.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,19 +22,21 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
+  
 
     @GetMapping("/api/public/categories")
-    public List<Category> getAllCategories()
+    public ResponseEntity<List<Category>> getAllCategories()
     {
-        return categoryService.getAllCategories();
+        List fetchedCategory=categoryService.getAllCategories();
+        return ResponseEntity.status(HttpStatus.OK).body(fetchedCategory);
+
     }
 
     @PostMapping("/api/public/category")
-    public String addCategory(@RequestBody Category category)
+    public ResponseEntity<String> addCategory(@Valid @RequestBody Category category)
     {
         categoryService.createCategory(category);
-        return "Category added Successfully";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Category added Successfully");
     }
 
     @DeleteMapping("/api/admin/categories/{categoryId}")
