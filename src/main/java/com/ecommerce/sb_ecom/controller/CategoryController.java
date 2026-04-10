@@ -1,6 +1,6 @@
 package com.ecommerce.sb_ecom.controller;
 
-import com.ecommerce.sb_ecom.model.Category;
+
 import com.ecommerce.sb_ecom.payload.CategoryDTO;
 import com.ecommerce.sb_ecom.payload.CategoryResponse;
 import com.ecommerce.sb_ecom.service.CategoryService;
@@ -52,11 +52,11 @@ public class CategoryController {
     }
 
     @PutMapping("/api/admin/categories/{categoryId}")
-    public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category,@PathVariable Long categoryId)
+    public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO,@PathVariable Long categoryId)
     {
 
-            Category updateCategory=categoryService.updateCategory(category,categoryId);
-            return ResponseEntity.ok().body(updateCategory);
+            CategoryDTO updateCategoryDTO=categoryService.updateCategory(categoryDTO,categoryId);
+        return new ResponseEntity<>(updateCategoryDTO, HttpStatus.OK);
     }
     }
 
