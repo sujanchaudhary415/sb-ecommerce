@@ -1,12 +1,13 @@
 package com.ecommerce.sb_ecom.controller;
 
 import com.ecommerce.sb_ecom.model.Category;
+import com.ecommerce.sb_ecom.payload.CategoryResponse;
 import com.ecommerce.sb_ecom.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+
 
 
 import java.util.List;
@@ -25,10 +26,10 @@ public class CategoryController {
 
 
     @GetMapping("/api/public/categories")
-    public ResponseEntity<List<Category>> getAllCategories()
+    public ResponseEntity<CategoryResponse> getAllCategories()
     {
-        List<Category> fetchedCategory=categoryService.getAllCategories();
-        return ResponseEntity.ok().body(fetchedCategory);
+        CategoryResponse categoryResponse =categoryService.getAllCategories();
+        return ResponseEntity.ok().body(categoryResponse);
 
     }
 
