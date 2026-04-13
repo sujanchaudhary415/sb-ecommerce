@@ -1,7 +1,6 @@
 package com.ecommerce.sb_ecom.controller;
 
 
-import com.ecommerce.sb_ecom.model.Category;
 import com.ecommerce.sb_ecom.payload.CategoryDTO;
 import com.ecommerce.sb_ecom.payload.CategoryResponse;
 import com.ecommerce.sb_ecom.service.CategoryService;
@@ -11,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-
-import java.util.List;
 
 @RestController
 public class CategoryController {
@@ -28,9 +25,9 @@ public class CategoryController {
 
 
     @GetMapping("/api/public/categories")
-    public ResponseEntity<CategoryResponse> getAllCategories()
+    public ResponseEntity<CategoryResponse> getAllCategories(@RequestParam(name="pageNumber" )Integer pageNumber,@RequestParam(name="pageSize")Integer pageSize)
     {
-        CategoryResponse categoryResponse =categoryService.getAllCategories();
+        CategoryResponse categoryResponse =categoryService.getAllCategories(pageNumber,pageSize);
         return ResponseEntity.ok().body(categoryResponse);
 
     }
