@@ -8,6 +8,7 @@ import com.ecommerce.sb_ecom.payload.CategoryResponse;
 import com.ecommerce.sb_ecom.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -59,16 +60,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public String deleteCategory(Long categoryId) {
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", String.valueOf(categoryId)));
-        categoryRepository.delete(category);
-        return "CategoryId with " + categoryId + " deleted successfully";
-    }
-
-
-
-    @Override
     public CategoryDTO updateCategory(CategoryDTO categoryDTO, Long categoryId) {
         Category savedCategory = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
@@ -80,6 +71,15 @@ public class CategoryServiceImpl implements CategoryService {
         //Entity to DTO
         return modelMapper.map(savedCategory, CategoryDTO.class);
     }
+
+    @Override
+    public CategoryDTO deleteCategory(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
+        categoryRepository.delete(category);
+        return modelMapper.map(category,CategoryDTO.class);
+    }
+
 
 
 }

@@ -41,7 +41,6 @@ public class MyGlobalExceptionHandler {
       response.put("status", String.valueOf(HttpStatus.NOT_FOUND.value()));
       response.put("message", e.getMessage());
       response.put("resourceName", e.getResourceName());
-      response.put("field", e.getField());
       response.put("fieldName", e.getFieldName());
 
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
